@@ -1,15 +1,15 @@
 @using Shared
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Результат</title>
+@{
+    Layout = "_Layout";
+    ViewBag.Title = $"Погода";
+}
 
 <style>
     body {
         display: flex;
         align-items: center;
         justify-content: center;
-        
-        margin: 0;
     }
     
     .weather-block {
@@ -39,14 +39,21 @@
 <div class="weather-block">
 @foreach (var city in ViewBag.Cities)
 {
-    var weather = await WeatherService.GetWeather(city.Trim());
-    var iconSrc = $"http://openweathermap.org/img/wn/{weather.IconId}@2x.png";
+    try
+    {
+        var weather = await WeatherService.GetWeather(city.Trim());
+        var iconSrc = $"http://openweathermap.org/img/wn/{weather.IconId}@2x.png";
 
-    <div class="weather">
-        <p class="city">@city</p>
-        <img src="@iconSrc" alt="@weather.Description">
-        <p>@weather.Description</p>
-        <p>@weather.Temperature ℃</p>
-    </div>
+        <div class="weather">
+            <p class="city">@city</p>
+            <img src="@iconSrc" alt="@weather.Description">
+            <p>@weather.Description</p>
+            <p>@weather.Temperature ℃</p>
+        </div>
+    }
+    catch (Exception exception)
+    {
+        Console.WriteLine(exception);
+    }
 }
 </div>
