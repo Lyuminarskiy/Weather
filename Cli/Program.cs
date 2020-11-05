@@ -3,10 +3,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Shared;
 
-namespace CLI
+namespace Cli
 {
     internal static class Program
     {
+        
         private static async Task Main(string[] args)
         {
             if (args.Length == 0)
@@ -14,11 +15,20 @@ namespace CLI
                 Console.WriteLine("Пожалуйста, введите список интересующих вас городов через запятую.");
                 return;
             }
-
+            
             var cities = args.First().Split(",");
             foreach (var city in cities)
             {
-                await ShowWeather(city.Trim());
+                try
+                {
+                    await ShowWeather(city.Trim());
+                }
+                catch
+                {
+                    Console.WriteLine($"{city}: прогноз погоды не получить не удалось!");
+                }
+
+                Console.WriteLine("---------------------------------");
             }
 
         }
@@ -32,6 +42,7 @@ namespace CLI
         private static async Task ShowWeather(string city)
         {
             var weather = await WeatherService.GetWeather(city);
+            
             var cityIcon = weather.IconId.Last() switch
             {
                 'd' => "🏙️",
@@ -54,8 +65,7 @@ namespace CLI
 
             Console.WriteLine($"{cityIcon}\t{weather.City}\n" +
                               $"{weatherIcon}\t{weather.Description}\n" +
-                              $"🌡️\t{weather.Temperature} ℃\n" +
-                              $"---------------------------------");
+                              $"🌡️\t{weather.Temperature} ℃");
         }
     }
 }
