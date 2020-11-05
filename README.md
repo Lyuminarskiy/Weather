@@ -9,3 +9,4 @@
 
 Список литературы:
 - [Полное руководство по языку программирования С# 8.0 и платформе .NET Core 3](https://metanit.com/sharp/tutorial/)
+- [Руководство по ASP.NET Core 3](https://metanit.com/sharp/aspnet5/)
