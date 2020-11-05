@@ -5,7 +5,7 @@
 Приложение "Погода":
 - Shared - библиотека доступа к REST API сайта openweathermap.org.
 - Cli - консольное приложение.
-- Web - веб-приложение (WIP).
+- Web - веб-приложение ASP.NET Core MVC.
 
 Список литературы:
 - [Полное руководство по языку программирования С# 8.0 и платформе .NET Core 3](https://metanit.com/sharp/tutorial/)
