@@ -10,7 +10,7 @@ namespace Cli
         
         private static async Task Main(string[] args)
         {
-            if (args.Length == 0)
+            if (args.Length == 0 || args.First() == "-h" || args.First() == "--help")
             {
                 Console.WriteLine("Пожалуйста, введите список интересующих вас городов через запятую.");
                 return;
@@ -21,11 +21,11 @@ namespace Cli
             {
                 try
                 {
-                    await ShowWeather(city.Trim());
+                    await ShowWeather(city);
                 }
                 catch
                 {
-                    Console.WriteLine($"{city}: прогноз погоды не получить не удалось!");
+                    Console.WriteLine($"{city}: прогноз погоды получить не удалось!");
                 }
 
                 Console.WriteLine("---------------------------------");
@@ -53,13 +53,11 @@ namespace Cli
             {
                 "01" => "☀️",
                 "02" => "⛅",
-                "03" => "☁️",
-                "04" => "☁️",
-                "09" => "🌧️",
-                "10" => "🌧️",
+                var id when id == "03" || id == "04" => "☁️",
+                var id when id == "09" || id == "10" => "🌧️",
                 "11" => "⛈️",
                 "13" => "🌨️",
-                "50" => "🌫️",
+                "50" => "🌁",
                 _ => ""
             };
 
